@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة تسجيل الدخول والتسجيل</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            text-align: right;
+            color: #555;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .toggle-link {
+            margin-top: 15px;
+            cursor: pointer;
+            color: #007bff;
+            font-size: 14px;
+            display: block;
+            text-align: center;
+        }
+        .toggle-link:hover {
+            text-decoration: underline;
+        }
+        .hidden {
+            display: none;
+        }
+        .input-box {
+            text-align: right;
+        }
+        .checkbox-container {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .checkbox-container label {
+            margin-left: 5px;
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="login-form">
+            <h2>تسجيل الدخول</h2>
+            <form id="loginForm" onsubmit="return handleLogin(event)">
+                <div class="input-box">
+                    <label for="login-username">البريد الإلكتروني:</label>
+                    <input type="email" id="login-username" name="login-username" required>
+                </div>
+                <div class="input-box">
+                    <label for="login-password">كلمة المرور:</label>
+                    <input type="password" id="login-password" name="login-password" required>
+                </div>
+                <button type="submit">تسجيل الدخول</button>
+            </form>
+            <div class="toggle-link" onclick="toggleForms()">ليس لديك حساب؟ سجل الآن</div>
+            <div class="toggle-link" onclick="showForgotPasswordForm()">نسيت كلمة المرور؟</div>
+        </div>
+        <div id="register-form" class="hidden">
+            <h2>التسجيل</h2>
+            <form id="registrationForm" onsubmit="return handleRegistration(event)">
+                <div class="input-box">
+                    <label for="first-name">الاسم الأول</label>
+                    <input type="text" id="first-name" name="first-name" required>
+                </div>
+                <div class="input-box">
+                    <label for="last-name">اسم العائلة</label>
+                    <input type="text" id="last-name" name="last-name" required>
+                </div>
+                <div class="input-box">
+                    <label for="dob">تاريخ الميلاد</label>
+                    <input type="date" id="dob" name="dob" required>
+                </div>
+                <div class="input-box">
+                    <label for="gender">الجنس</label>
+                    <select id="gender" name="gender" required>
+                        <option value="male">ذكر</option>
+                        <option value="female">أنثى</option>
+                        <option value="other">آخر</option>
+                    </select>
+                </div>
+                <div class="input-box">
+                    <label for="speciality">التخصص الدراسي</label>
+                    <select id="speciality" name="speciality" required>
+                        <option value="électricité-industrielle">Électricité industrielle</option>
+                        <option value="électricité-domestique">Électricité domestique</option>
+                        <option value="mécanique-industrielle">Mécanique industrielle</option>
+                        <option value="maintenance-des-machines">Maintenance des machines</option>
+                        <option value="réfrigération-et-climatisation">Techniques de réfrigération et de climatisation</option>
+                        <option value="maintenance-industrielle">Maintenance industrielle</option>
+                        <option value="énergie-renouvelable-solaire">Techniques de l'énergie solaire</option>
+                        <option value="énergie-renouvelable-éolienne">Techniques de l'énergie éolienne</option>
+                        <option value="énergie-renouvelable-biomasse">Techniques de l'énergie biologique</option>
+                        <option value="automatisation-et-contrôle">Techniques de contrôle automatique</option>
+                        <option value="maintenance-avancée">Techniques de maintenance avancée</option>
+                    </select>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="subscribe" name="subscribe">
+                    <label for="subscribe">الاشتراك في النشرة الإخبارية</label>
+                </div>
+                <div class="input-box">
+                    <label for="email">عنوان البريد الإلكتروني</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="input-box">
+                    <label for="reg-password">كلمة المرور</label>
+                    <input type="password" id="reg-password" name="password" required>
+                </div>
+                <button type="submit">سجل</button>
+            </form>
+            <div class="toggle-link" onclick="toggleForms()">لديك حساب؟ تسجيل الدخول</div>
+        </div>
+        <div id="forgot-password-form" class="hidden">
+            <h2>نسيت كلمة المرور</h2>
+            <form id="forgotPasswordForm" onsubmit="return handleForgotPassword(event)">
+                <div class="input-box">
+                    <label for="reset-email">البريد الإلكتروني:</label>
+                    <input type="email" id="reset-email" name="reset-email" required>
+                </div>
+                <button type="submit">إرسال رمز التحقق</button>
+            </form>
+            <div class="toggle-link" onclick="toggleForms()">تسجيل الدخول</div>
+        </div>
+        <div id="verify-code-form" class="hidden">
+            <h2>إدخال رمز التحقق</h2>
+            <form id="verifyCodeForm" onsubmit="return handleVerifyCode(event)">
+                <div class="input-box">
+                    <label for="verification-code">رمز التحقق:</label>
+                    <input type="text" id="verification-code" name="verification-code" required>
+                </div>
+                <button type="submit">تحقق</button>
+            </form>
+        </div>
+        <div id="reset-password-form" class="hidden">
+            <h2>تعيين كلمة مرور جديدة</h2>
+            <form id="resetPasswordForm" onsubmit="return handleResetPassword(event)">
+                <div class="input-box">
+                    <label for="new-password">كلمة المرور الجديدة:</label>
+                    <input type="password" id="new-password" name="new-password" required>
+                </div>
+                <div class="input-box">
+                    <label for="confirm-password">تأكيد كلمة المرور الجديدة:</label>
+                    <input type="password" id="confirm-password" name="confirm-password" required>
+                </div>
+                <button type="submit">تعيين كلمة المرور</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        localStorage.setItem('username', 'اسم_المستخدم');
+        
+        function toggleForms() {
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            const forgotPasswordForm = document.getElementById('forgot-password-form');
+            const verifyCodeForm = document.getElementById('verify-code-form');
+            const resetPasswordForm = document.getElementById('reset-password-form');
+
+            loginForm.classList.toggle('hidden');
+            registerForm.classList.toggle('hidden');
+            forgotPasswordForm.classList.add('hidden');
+            verifyCodeForm.classList.add('hidden');
+            resetPasswordForm.classList.add('hidden');
+        }
+
+        function showForgotPasswordForm() {
+            const loginForm = document.getElementById('login-form');
+            const forgotPasswordForm = document.getElementById('forgot-password-form');
+            loginForm.classList.add('hidden');
+            forgotPasswordForm.classList.remove('hidden');
+        }
+
+        function showVerifyCodeForm() {
+            const forgotPasswordForm = document.getElementById('forgot-password-form');
+            const verifyCodeForm = document.getElementById('verify-code-form');
+            forgotPasswordForm.classList.add('hidden');
+            verifyCodeForm.classList.remove('hidden');
+        }
+
+        function showResetPasswordForm() {
+            const verifyCodeForm = document.getElementById('verify-code-form');
+            const resetPasswordForm = document.getElementById('reset-password-form');
+            verifyCodeForm.classList.add('hidden');
+            resetPasswordForm.classList.remove('hidden');
+        }
+
+        function getUsers() {
+            return JSON.parse(localStorage.getItem('users')) || [];
+        }
+
+        function saveUsers(users) {
+            localStorage.setItem('users', JSON.stringify(users));
+        }
+
+        function handleRegistration(event) {
+            event.preventDefault();
+            const form = event.target;
+            const firstName = form.querySelector('input[name="first-name"]').value;
+            const password = form.querySelector('input[name="password"]').value;
+            const email = form.querySelector('input[name="email"]').value;
+            const speciality = form.querySelector('select[name="speciality"]').value;
+            const users = getUsers();
+            if (users.some(user => user.email === email)) {
+                alert("هذا البريد الإلكتروني مسجل بالفعل. يمكنك تسجيل الدخول.");
+                toggleForms();
+                return false;
+            }
+            if (password.length < 8) {
+                alert("كلمة المرور يجب أن تكون على الأقل 8 أحرف.");
+                return false;
+            }
+            users.push({ firstName, email, password, speciality });
+            saveUsers(users);
+            alert("تم تسجيلك بنجاح!");
+            toggleForms();
+            return false;
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const form = event.target;
+            const username = form.querySelector('input[name="login-username"]').value;
+            const password = form.querySelector('input[name="login-password"]').value;
+            const users = getUsers();
+            const user = users.find(user => user.email === username && user.password === password);
+            if (user) {
+                alert("تسجيل الدخول ناجح!");
+                localStorage.setItem('currentUserEmail', username);
+                window.location.href = `${user.speciality}.html`;
+            } else {
+                alert("البريد الإلكتروني أو كلمة المرور غير صحيحة.");
+            }
+            return false;
+        }
+
+        function handleForgotPassword(event) {
+            event.preventDefault();
+            const form = event.target;
+            const email = form.querySelector('input[name="reset-email"]').value;
+            const users = getUsers();
+            const user = users.find(user => user.email === email);
+            if (user) {
+                const verificationCode = Math.floor(100000 + Math.random() * 900000);
+                alert(`تم إرسال رمز التحقق إلى بريدك الإلكتروني: ${verificationCode}`);
+                localStorage.setItem('verificationCode', verificationCode);
+                localStorage.setItem('resetEmail', email); // تخزين البريد الإلكتروني لإعادة تعيين كلمة المرور
+                showVerifyCodeForm();
+            } else {
+                alert("البريد الإلكتروني غير مسجل.");
+            }
+            return false;
+        }
+
+        function handleVerifyCode(event) {
+            event.preventDefault();
+            const form = event.target;
+            const verificationCode = form.querySelector('input[name="verification-code"]').value;
+            const storedCode = localStorage.getItem('verificationCode');
+            if (verificationCode === storedCode) {
+                alert("تم التحقق بنجاح!");
+                showResetPasswordForm();
+            } else {
+                alert("رمز التحقق غير صحيح.");
+            }
+            return false;
+        }
+
+        function handleResetPassword(event) {
+            event.preventDefault();
+            const form = event.target;
+            const newPassword = form.querySelector('input[name="new-password"]').value;
+            const confirmPassword = form.querySelector('input[name="confirm-password"]').value;
+            if (newPassword.length < 8) {
+                alert("كلمة المرور يجب أن تكون على الأقل 8 أحرف.");
+                return false;
+            }
+            if (newPassword !== confirmPassword) {
+                alert("كلمة المرور وتأكيد كلمة المرور غير متطابقتين.");
+                return false;
+            }
+            const email = localStorage.getItem('resetEmail');
+            const users = getUsers();
+            const user = users.find(user => user.email === email);
+            if (user) {
+                user.password = newPassword; // تحديث كلمة المرور
+                saveUsers(users);
+                alert("تم تحديث كلمة المرور بنجاح!");
+                toggleForms(); // العودة إلى نموذج تسجيل الدخول
+            }
+            return false;
+        }
+    </script>
+</body>
+</html>
